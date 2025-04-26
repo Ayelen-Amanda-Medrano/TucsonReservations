@@ -30,4 +30,14 @@ public class ReservationsController : ControllerBase
 
         return StatusCode((int)result.StatusCode, result);
     }
+
+    [HttpGet]
+    [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Result<GetReservationsResponse>))]
+    public async Task<IActionResult> GetAll()
+    {
+        var result = await _mediator.Send(new GetReservationsQuery());
+
+        return StatusCode((int)result.StatusCode, result);
+    }
 }

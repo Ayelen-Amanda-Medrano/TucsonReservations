@@ -5,4 +5,6 @@ namespace TucsonReservations.Application.Reservations.Repositories.Interfaces;
 public interface IReservationRepository
 {
     void Add(Reservation reservation);
+
+    IReadOnlyList<Reservation> GetAll();
 }

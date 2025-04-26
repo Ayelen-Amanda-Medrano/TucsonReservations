@@ -14,7 +14,7 @@ public static class ApplicationServiceRegistration
         services.AddTransient<IClientService, ClientService>();
         services.AddTransient<IReservationService, ReservationService>();
 
-        services.AddAutoMapper(typeof(ClientDtoMapper).Assembly);
+        services.AddAutoMapper(typeof(ClientMapper).Assembly);
 
         return services;
     }

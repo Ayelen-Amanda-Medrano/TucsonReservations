@@ -18,9 +18,9 @@ public static class InfrastructureServiceRegistration
     private static IServiceCollection AddPersistenceServices(this IServiceCollection services)
     {
         services.AddScoped<IClientRepository, ClientRepository>();
-        services.AddScoped<IReservationRepository, ReservationRepository>();
-        services.AddScoped<ITableRepository, TableRepository>();
-        services.AddScoped<IWaitingListRepository, WaitingListRepository>();
+        services.AddSingleton<IReservationRepository, ReservationRepository>();
+        services.AddSingleton<ITableRepository, TableRepository>();
+        services.AddSingleton<IWaitingListRepository, WaitingListRepository>();
 
         return services;
     }

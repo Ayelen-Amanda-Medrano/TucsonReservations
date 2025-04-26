@@ -1,6 +1,8 @@
-﻿using System.Net;
+﻿using AutoMapper;
+using System.Net;
 using TucsonReservations.Application.Clients.Repositories.Interfaces;
 using TucsonReservations.Application.Common;
+using TucsonReservations.Application.Reservations.Dtos;
 using TucsonReservations.Application.Reservations.Repositories.Interfaces;
 using TucsonReservations.Application.Reservations.Response;
 using TucsonReservations.Application.Reservations.Services.Interfaces;
@@ -16,13 +18,15 @@ public class ReservationService : IReservationService
     public readonly IClientRepository _clientRepository;
     public readonly IWaitingListRepository _waitingListRepository;
     public readonly ITableRepository _tableRepository;
+    private readonly IMapper _mapper;
 
-    public ReservationService(IReservationRepository reservationRepository, IClientRepository clientRepository, IWaitingListRepository waitingListRepository, ITableRepository tableRepository)
+    public ReservationService(IReservationRepository reservationRepository, IClientRepository clientRepository, IWaitingListRepository waitingListRepository, ITableRepository tableRepository, IMapper mapper)
     {
         _reservationRepository = reservationRepository;
         _clientRepository = clientRepository;
         _waitingListRepository = waitingListRepository;
         _tableRepository = tableRepository;
+        _mapper = mapper;
     }
 
     public Result<CreateReservationResponse> Create(CreateReservationCommand request)
@@ -47,8 +51,19 @@ public class ReservationService : IReservationService
         var reservation = Reservation.CreateInstance(client, table, request.ReservationDate);
         _reservationRepository.Add(reservation);
 
+        var reservations = _reservationRepository.GetAll();
+
         _tableRepository.SetTableAvailability(table.TableNumber, false);
 
         return Result<CreateReservationResponse>.Ok(new CreateReservationResponse() { TableNumber = table.TableNumber } );
+    }
+
+    public Result<GetReservationsResponse> GetAll()
+    {
+        var reservations = _reservationRepository.GetAll();
+
+        var reservationsDto = _mapper.Map<List<ReservationDto>>(reservations);
+
+        return Result<GetReservationsResponse>.Ok(new GetReservationsResponse() { Reservations = reservationsDto} );
     }
 }

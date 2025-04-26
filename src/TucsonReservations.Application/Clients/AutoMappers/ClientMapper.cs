@@ -4,9 +4,9 @@ using TucsonReservations.Domain.Entities;
 
 namespace TucsonReservations.Application.Clients.AutoMappers;
 
-public class ClientDtoMapper : Profile
+public class ClientMapper : Profile
 {
-    public ClientDtoMapper()
+    public ClientMapper()
     {
         CreateMap<Client, ClientDto>();
     }

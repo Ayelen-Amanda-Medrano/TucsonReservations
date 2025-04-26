@@ -11,4 +11,7 @@ public class ReservationRepository : IReservationRepository
     {
         _reservations.Add(reservation);
     }
+
+    public IReadOnlyList<Reservation> GetAll()
+        => _reservations;
 }
