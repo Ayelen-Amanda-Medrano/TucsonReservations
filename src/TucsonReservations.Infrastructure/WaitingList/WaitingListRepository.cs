@@ -3,7 +3,7 @@ using TucsonReservations.Domain.Entities;
 
 namespace TucsonReservations.Infrastructure.WaitingList;
 
-public class WaitingListRepositoryMock : IWaitingListRepository
+public class WaitingListRepository : IWaitingListRepository
 {
     private readonly List<Client> _waitingList = new();
     public void Add(Client client) => _waitingList.Add(client);

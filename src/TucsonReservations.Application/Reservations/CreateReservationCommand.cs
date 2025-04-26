@@ -3,20 +3,21 @@ using System.ComponentModel.DataAnnotations;
 using System.Net;
 using TucsonReservations.Application.Clients.Services.Interfaces;
 using TucsonReservations.Application.Common;
+using TucsonReservations.Application.Reservations.Response;
 using TucsonReservations.Application.Reservations.Services.Interfaces;
 
 namespace TucsonReservations.Application.Reservations;
 
-public record CreateReservationCommand : IRequest<Result<int>>
+public record CreateReservationCommand : IRequest<Result<CreateReservationResponse>>
 {
     [Required]
-    public int MemberNumber { get; }
+    public int MemberNumber { get; set; }
 
     [Required]
-    public DateTime ReservationDate { get; }
+    public DateTime ReservationDate { get; set; }
 }
 
-public class CreateReservationHandler : IRequestHandler<CreateReservationCommand, Result<int>>
+public class CreateReservationHandler : IRequestHandler<CreateReservationCommand, Result<CreateReservationResponse>>
 {
     private readonly IReservationService _reservationService;
     private readonly IClientService _clientService;
@@ -27,11 +28,11 @@ public class CreateReservationHandler : IRequestHandler<CreateReservationCommand
         _clientService = clientService;
     }
 
-    public async Task<Result<int>> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
+    public async Task<Result<CreateReservationResponse>> Handle(CreateReservationCommand request, CancellationToken cancellationToken)
     {
         var client = _clientService.GetByMemberNumber(request.MemberNumber);
         if (client is null)
-            return Result<int>.Fail($"Client with member number {request.MemberNumber} not found.", HttpStatusCode.NotFound);
+            return Result<CreateReservationResponse>.Fail($"Client with member number {request.MemberNumber} not found.", HttpStatusCode.NotFound);
 
         var reservationResult = _reservationService.Create(request);
 

@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TucsonReservations.Application.Common;
 using TucsonReservations.Application.Reservations;
+using TucsonReservations.Application.Reservations.Response;
 
 namespace TucsonReservations.API.Reservations;
 
@@ -19,7 +20,7 @@ public class ReservationsController : ControllerBase
     [HttpPost]
     [Consumes("application/json")]
     [Produces("application/json")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Result<int>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Result<CreateReservationResponse>))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]

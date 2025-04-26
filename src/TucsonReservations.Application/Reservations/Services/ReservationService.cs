@@ -2,6 +2,7 @@
 using TucsonReservations.Application.Clients.Repositories.Interfaces;
 using TucsonReservations.Application.Common;
 using TucsonReservations.Application.Reservations.Repositories.Interfaces;
+using TucsonReservations.Application.Reservations.Response;
 using TucsonReservations.Application.Reservations.Services.Interfaces;
 using TucsonReservations.Application.Table.Repositories.Interfaces;
 using TucsonReservations.Application.WaitingList.Repositories.Interfaces;
@@ -24,15 +25,15 @@ public class ReservationService : IReservationService
         _tableRepository = tableRepository;
     }
 
-    public Result<int> Create(CreateReservationCommand request)
+    public Result<CreateReservationResponse> Create(CreateReservationCommand request)
     {
         var client = _clientRepository.GetClientByMemberNumber(request.MemberNumber);
         if(client is null)
-            return Result<int>.Fail($"Client with member number {request.MemberNumber} not found.", HttpStatusCode.NotFound);
+            return Result<CreateReservationResponse>.Fail($"Client with member number {request.MemberNumber} not found.", HttpStatusCode.NotFound);
 
         var canReserve = client!.CanReserve(request.ReservationDate);
         if (!canReserve)
-            return Result<int>
+            return Result<CreateReservationResponse>
                 .Fail($"The category of client number {request.MemberNumber} does not allow creating a reservation for the date {request.ReservationDate}.", HttpStatusCode.Forbidden);
 
         var table = _tableRepository.GetFirstAvailability();
@@ -40,7 +41,7 @@ public class ReservationService : IReservationService
         if (table is null)
         {
             _waitingListRepository.Add(client);
-            return Result<int>.Ok(-1, "No tables available. Added to waiting list.");
+            return Result<CreateReservationResponse>.Ok(null, "No tables available. Added to waiting list.");
         }
 
         var reservation = Reservation.CreateInstance(client, table, request.ReservationDate);
@@ -48,6 +49,6 @@ public class ReservationService : IReservationService
 
         _tableRepository.SetTableAvailability(table.TableNumber, false);
 
-        return Result<int>.Ok(table.TableNumber);
+        return Result<CreateReservationResponse>.Ok(new CreateReservationResponse() { TableNumber = table.TableNumber } );
     }
 }

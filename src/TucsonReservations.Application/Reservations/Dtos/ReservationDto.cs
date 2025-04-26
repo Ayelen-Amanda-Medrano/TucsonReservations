@@ -1,6 +1,4 @@
-﻿using TucsonReservations.Domain.Entities;
-
-namespace TucsonReservations.Application.Reservations.Dtos;
+﻿namespace TucsonReservations.Application.Reservations.Dtos;
 
 public class ReservationDto
 {
