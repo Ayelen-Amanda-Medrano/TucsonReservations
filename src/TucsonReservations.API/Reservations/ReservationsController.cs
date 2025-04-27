@@ -43,11 +43,14 @@ public class ReservationsController : ControllerBase
 
     [HttpDelete]
     [Consumes("application/json")]
-    [ProducesResponseType(StatusCodes.Status204NoContent, Type = typeof(Result<object>))]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteReservation([FromBody] DeleteReservationCommand command)
     {
         var result = await _mediator.Send(command);
+
+        if (result.Success)
+            return NoContent();
 
         return StatusCode((int)result.StatusCode, result);
     }
