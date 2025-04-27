@@ -20,11 +20,11 @@ El proyecto se organiza en capas bien definidas, siguiendo los principios SOLID:
 
 ⚙️ Endpoints Principales de la API
 -Reservas (/api/reservations)
-- -POST /api/reservations: Permite la creación de una nueva reserva de mesa.
-- -GET /api/reservations: Recupera la lista de todas las reservas existentes.
-- -DELETE /api/reservations/{id}: Elimina una reserva específica identificada por su ID.
+  -POST /api/reservations: Permite la creación de una nueva reserva de mesa.
+  -GET /api/reservations: Recupera la lista de todas las reservas existentes.
+  -DELETE /api/reservations: Elimina una reserva específica por fecha y numero de mesa.
 -Lista de Espera (/api/waiting-list)
-- -GET /api/waiting-list: Obtiene la lista de clientes actualmente en espera.
+  -GET /api/waiting-list: Obtiene la lista de clientes actualmente en espera.
   
 🧪 Pruebas Unitarias
 Se incluye un proyecto dedicado para las pruebas unitarias, asegurando la calidad y la correctitud de la lógica de negocio:
