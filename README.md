@@ -2,14 +2,14 @@
 API para la gestión de reservas de mesas en un restaurante y manejo de clientes en lista de espera.
 
 ✨ Tecnologías y Componentes Clave
-• .NET 8
-• ASP.NET Core Web API
-• MediatR (Patrón CQRS): Implementación del patrón Command Query Responsibility Segregation, promoviendo una clara separación entre las operaciones de lectura y escritura para mejorar la mantenibilidad y escalabilidad.
-• AutoMapper (Mapeo de Objetos)
-• Swashbuckle.AspNetCore (Swagger)
-• NSubstitute (Mocks en Pruebas): Una biblioteca de mocking amigable para la creación de stubs y mocks en pruebas unitarias.
-• XUnit (Framework de Pruebas)
-• FluentAssertions (Asserts Expresivos): Proporciona un conjunto de métodos de aserción más legibles y expresivos para las pruebas unitarias.
+- .NET 8
+- ASP.NET Core Web API
+- MediatR (Patrón CQRS): Implementación del patrón Command Query Responsibility Segregation, promoviendo una clara separación entre las operaciones de lectura y escritura para mejorar la mantenibilidad y escalabilidad.
+- AutoMapper (Mapeo de Objetos)
+- Swashbuckle.AspNetCore (Swagger)
+- NSubstitute (Mocks en Pruebas): Una biblioteca de mocking amigable para la creación de stubs y mocks en pruebas unitarias.
+- XUnit (Framework de Pruebas)
+- FluentAssertions (Asserts Expresivos): Proporciona un conjunto de métodos de aserción más legibles y expresivos para las pruebas unitarias.
 
 🏗️ Arquitectura del Proyecto
 El proyecto se organiza en capas bien definidas, siguiendo los principios SOLID:
