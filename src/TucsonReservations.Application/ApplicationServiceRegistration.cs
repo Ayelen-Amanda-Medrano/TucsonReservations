@@ -4,6 +4,8 @@ using TucsonReservations.Application.Clients.Services;
 using TucsonReservations.Application.Clients.Services.Interfaces;
 using TucsonReservations.Application.Reservations.Services;
 using TucsonReservations.Application.Reservations.Services.Interfaces;
+using TucsonReservations.Application.WaitingList.Services;
+using TucsonReservations.Application.WaitingList.Services.Interfaces;
 
 namespace TucsonReservations.Application;
 
@@ -13,6 +15,7 @@ public static class ApplicationServiceRegistration
     {
         services.AddTransient<IClientService, ClientService>();
         services.AddTransient<IReservationService, ReservationService>();
+        services.AddTransient<IWaitingListService, WaitingListService>();
 
         services.AddAutoMapper(typeof(ClientMapper).Assembly);
 

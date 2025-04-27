@@ -87,6 +87,7 @@ public class ReservationService : IReservationService
                 var newReservation = Reservation.CreateInstance(client, table, request.ReservationDate);
 
                 _reservationRepository.Add(newReservation);
+                _waitingListRepository.Remove(client);
                 _tableRepository.ReserveTable(reservationDateOnly, table!.TableNumber);
             }
         }
