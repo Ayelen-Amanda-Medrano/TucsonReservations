@@ -23,12 +23,13 @@ El proyecto se organiza en capas bien definidas, siguiendo los principios SOLID:
 • TucsonReservations.Infrastructure (Capa de Implementación): Alberga las implementaciones concretas de las interfaces definidas en otras capas, como la interacción con bases de datos, servicios externos o cualquier otro detalle de infraestructura.
 
 ⚙️ Endpoints Principales de la API
-• Reservas (/api/reservations)
- ○ POST /api/reservations: Permite la creación de una nueva reserva de mesa.
- ○ GET /api/reservations: Recupera la lista de todas las reservas existentes.
- ○ DELETE /api/reservations: Elimina una reserva específica por fecha y numero de mesa.
-• Lista de Espera (/api/waiting-list)
- ○ GET /api/waiting-list: Obtiene la lista de clientes actualmente en espera.
+Reservas (/api/reservations)
+- POST /api/reservations: Permite la creación de una nueva reserva de mesa.
+- GET /api/reservations: Recupera la lista de todas las reservas existentes.
+- DELETE /api/reservations: Elimina una reserva específica por fecha y numero de mesa.
+  
+Lista de Espera (/api/waiting-list)
+- GET /api/waiting-list: Obtiene la lista de clientes actualmente en espera.
   
 🧪 Pruebas Unitarias
 Se incluye un proyecto dedicado para las pruebas unitarias, asegurando la calidad y la correctitud de la lógica de negocio:
@@ -44,10 +45,10 @@ La API incluye la siguiente configuración inicial de clientes:
 
 JSON
 [
-  { "MemberNumber": 1, "Name": "Marco Rodriguez", "Category": "Classic" },
-  { "MemberNumber": 2, "Name": "Isabel Ramirez", "Category": "Gold" },
-  { "MemberNumber": 3, "Name": "Juan Sanchez", "Category": "Platinum" },
-  { "MemberNumber": 4, "Name": "Micaela Gutierrez", "Category": "Diamond" }
+  { "Id": 100, "MemberNumber": 1, "Name": "Marco Rodriguez", "Category": "Classic" },
+  { "Id": 101, "MemberNumber": 2, "Name": "Isabel Ramirez", "Category": "Gold" },
+  { "Id": 102, "MemberNumber": 3, "Name": "Juan Sanchez", "Category": "Platinum" },
+  { "Id": 103, "MemberNumber": 4, "Name": "Micaela Gutierrez", "Category": "Diamond" }
 ]
 
 
