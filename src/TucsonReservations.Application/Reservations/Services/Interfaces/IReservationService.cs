@@ -8,4 +8,6 @@ public interface IReservationService
     Result<CreateReservationResponse> Create(CreateReservationCommand request);
 
     Result<GetReservationsResponse> GetAll();
+
+    Result<object> Delete(DeleteReservationCommand request);
 }

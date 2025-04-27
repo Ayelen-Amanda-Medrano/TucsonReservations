@@ -2,7 +2,9 @@
 
 public interface ITableRepository
 {
-    Domain.Entities.Table? GetFirstAvailability();
+    Domain.Entities.Table? GetFirstAvailable(DateOnly date);
 
-    void SetTableAvailability(int tableNumber, bool isAvailable);
+    bool ReserveTable(DateOnly date, int tableNumber);
+
+    public bool FreeTable(DateOnly date, int tableNumber);
 }

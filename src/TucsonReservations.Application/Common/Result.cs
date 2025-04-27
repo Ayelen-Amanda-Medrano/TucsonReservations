@@ -17,8 +17,8 @@ public class Result<T>
         StatusCode = statusCode;
     }
 
-    public static Result<T> Ok(T? data, string? message = null)
-        => new(true, message ?? string.Empty, data, HttpStatusCode.OK);
+    public static Result<T> Ok(T? data, HttpStatusCode statusCode, string? message = null)
+        => new(true, message ?? string.Empty, data, statusCode);
 
     public static Result<T> Fail(string message, HttpStatusCode statusCode)
         => new(false, message, default, statusCode);

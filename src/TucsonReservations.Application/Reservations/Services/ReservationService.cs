@@ -31,6 +31,7 @@ public class ReservationService : IReservationService
 
     public Result<CreateReservationResponse> Create(CreateReservationCommand request)
     {
+        var reservationDateOnly = DateOnly.FromDateTime(request.ReservationDate);
         var client = _clientRepository.GetClientByMemberNumber(request.MemberNumber);
         if(client is null)
             return Result<CreateReservationResponse>.Fail($"Client with member number {request.MemberNumber} not found.", HttpStatusCode.NotFound);
@@ -38,24 +39,22 @@ public class ReservationService : IReservationService
         var canReserve = client!.CanReserve(request.ReservationDate);
         if (!canReserve)
             return Result<CreateReservationResponse>
-                .Fail($"The category of client number {request.MemberNumber} does not allow creating a reservation for the date {request.ReservationDate}.", HttpStatusCode.Forbidden);
+                .Fail($"The category of client number {request.MemberNumber} does not allow creating a reservation for the date {reservationDateOnly}.", HttpStatusCode.Forbidden);
 
-        var table = _tableRepository.GetFirstAvailability();
+        var table = _tableRepository.GetFirstAvailable(reservationDateOnly);
 
         if (table is null)
         {
             _waitingListRepository.Add(client);
-            return Result<CreateReservationResponse>.Ok(null, "No tables available. Added to waiting list.");
+            return Result<CreateReservationResponse>.Ok(null, HttpStatusCode.OK, "No tables available. Added to waiting list.");
         }
 
         var reservation = Reservation.CreateInstance(client, table, request.ReservationDate);
         _reservationRepository.Add(reservation);
 
-        var reservations = _reservationRepository.GetAll();
+        _tableRepository.ReserveTable(reservationDateOnly, table.TableNumber);
 
-        _tableRepository.SetTableAvailability(table.TableNumber, false);
-
-        return Result<CreateReservationResponse>.Ok(new CreateReservationResponse() { TableNumber = table.TableNumber } );
+        return Result<CreateReservationResponse>.Ok(new CreateReservationResponse() { TableNumber = table.TableNumber }, HttpStatusCode.Created);
     }
 
     public Result<GetReservationsResponse> GetAll()
@@ -64,6 +63,34 @@ public class ReservationService : IReservationService
 
         var reservationsDto = _mapper.Map<List<ReservationDto>>(reservations);
 
-        return Result<GetReservationsResponse>.Ok(new GetReservationsResponse() { Reservations = reservationsDto} );
+        return Result<GetReservationsResponse>.Ok(new GetReservationsResponse() { Reservations = reservationsDto}, HttpStatusCode.OK );
+    }
+
+    public Result<object> Delete(DeleteReservationCommand request)
+    {
+        var reservationDateOnly = DateOnly.FromDateTime(request.ReservationDate);
+
+        var reservation = _reservationRepository.GetReservation(request.ReservationDate, request.TableNumber);
+        if(reservation is null)
+            return Result<object>.Fail($"Reservation for table number {request.TableNumber} not found on {reservationDateOnly}.", HttpStatusCode.NotFound);
+
+        _reservationRepository.Remove(reservation);
+        _tableRepository.FreeTable(reservationDateOnly, reservation.Table.TableNumber);
+
+
+        var client = _waitingListRepository.GetNextByPriority();
+        if(client is not null)
+        {
+            var table = _tableRepository.GetFirstAvailable(reservationDateOnly);
+            if (table is not null)
+            {
+                var newReservation = Reservation.CreateInstance(client, table, request.ReservationDate);
+
+                _reservationRepository.Add(newReservation);
+                _tableRepository.ReserveTable(reservationDateOnly, table!.TableNumber);
+            }
+        }
+
+        return Result<object>.Ok(null, HttpStatusCode.NoContent);
     }
 }

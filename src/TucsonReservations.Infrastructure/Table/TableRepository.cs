@@ -5,32 +5,50 @@ namespace TucsonReservations.Infrastructure.Table;
 
 public class TableRepository : ITableRepository
 {
-    private readonly List<Domain.Entities.Table> _tables;
+    private readonly Dictionary<DateOnly, List<Domain.Entities.Table>> _tables = new Dictionary<DateOnly, List<Domain.Entities.Table>>();
 
-    public TableRepository()
+    public bool ReserveTable(DateOnly date, int tableNumber)
     {
-        _tables = TablesConstants.Tables.Select(t => new Domain.Entities.Table
-        {
-            TableNumber = t.TableNumber,
-            Capacity = t.Capacity,
-            IsAvailable = t.IsAvailable
-        }).ToList();
+        var tables = GetTablesForDate(date);
+        var table = tables.FirstOrDefault(t => t.TableNumber == tableNumber && t.IsAvailable);
+        if (table == null) return false;
+
+        table.IsAvailable = false;
+        return true;
     }
 
-    public Domain.Entities.Table? GetFirstAvailability()
+    public bool FreeTable(DateOnly date, int tableNumber)
     {
-        return _tables
-            .Where(t => t.IsAvailable)
-            .OrderBy(t => t.IsAvailable)
-            .FirstOrDefault();
+        var tables = GetTablesForDate(date);
+        var table = tables.FirstOrDefault(t => t.TableNumber == tableNumber && !t.IsAvailable);
+        if (table == null) return false;
+
+        table.IsAvailable = true;
+        return true;
     }
 
-    public void SetTableAvailability(int tableNumber, bool isAvailable)
+    public Domain.Entities.Table? GetFirstAvailable(DateOnly date)
     {
-        var table = _tables.FirstOrDefault(t => t.TableNumber == tableNumber);
-        if (table != null)
+        return GetTablesForDate(date)
+               .FirstOrDefault(t => t.IsAvailable);
+    }
+
+    private List<Domain.Entities.Table> GetTablesForDate(DateOnly date)
+    {
+        if (!_tables.TryGetValue(date, out var tables))
         {
-            table.IsAvailable = isAvailable;
+            tables = TablesConstants.Tables
+                .Select(t => new Domain.Entities.Table
+                {
+                    TableNumber = t.TableNumber,
+                    Capacity = t.Capacity,
+                    IsAvailable = t.IsAvailable
+                })
+                .ToList();
+
+            _tables[date] = tables;
         }
+
+        return tables;
     }
 }

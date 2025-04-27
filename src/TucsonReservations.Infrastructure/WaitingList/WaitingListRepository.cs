@@ -6,20 +6,21 @@ namespace TucsonReservations.Infrastructure.WaitingList;
 public class WaitingListRepository : IWaitingListRepository
 {
     private readonly List<Client> _waitingList = new();
+
     public void Add(Client client) => _waitingList.Add(client);
 
     public IReadOnlyList<Client> GetAll()
-    {
-        throw new NotImplementedException();
-    }
+        => _waitingList;
 
     public Client? GetNextByPriority()
     {
-        throw new NotImplementedException();
+        return _waitingList
+            .OrderByDescending(c => c.Category)
+            .FirstOrDefault();
     }
 
     public void Remove(Client client)
     {
-        throw new NotImplementedException();
+        _waitingList.Remove(client);
     }
 }
