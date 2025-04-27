@@ -34,14 +34,13 @@ Lista de Espera (/api/waiting-list)
   
 🧪 Pruebas Unitarias
 
-Se incluye un proyecto dedicado para las pruebas unitarias
 Proyecto: TucsonReservations.UnitTests
-Ejecución: Utilice el comando dotnet test para ejecutar todas las pruebas unitarias.
+Ejecución: dotnet test
 
 💡 Consideraciones de Diseño
 
-La gestión de la disponibilidad de mesas se mantiene en memoria para esta implementación.
-La lista de espera prioriza a los clientes según su categoría, permitiendo un trato preferencial basado en la lealtad.
+- La gestión de la disponibilidad de mesas se mantiene en memoria para esta implementación.
+- La lista de espera prioriza a los clientes según su categoría, permitiendo un trato preferencial basado en la lealtad.
  
 👤 Clientes Predeterminados
 
@@ -49,7 +48,7 @@ La API incluye la siguiente configuración inicial de clientes:
 
 - { "MemberNumber": 1, "Category": "Classic" }
 - { "MemberNumber": 2, "Category": "Gold" }
-- { "MemberNumber": 3, "Category": "Platinum" },
+- { "MemberNumber": 3, "Category": "Platinum" }
 - { "MemberNumber": 4, "Category": "Diamond" }
 
 
