@@ -44,11 +44,11 @@ La lista de espera prioriza a los clientes según su categoría, permitiendo un 
 La API incluye la siguiente configuración inicial de clientes:
 
 JSON
-[
-  { "Id": 100, "MemberNumber": 1, "Name": "Marco Rodriguez", "Category": "Classic" },
-  { "Id": 101, "MemberNumber": 2, "Name": "Isabel Ramirez", "Category": "Gold" },
-  { "Id": 102, "MemberNumber": 3, "Name": "Juan Sanchez", "Category": "Platinum" },
-  { "Id": 103, "MemberNumber": 4, "Name": "Micaela Gutierrez", "Category": "Diamond" }
-]
+
+- { "MemberNumber": 1, "Category": "Classic" }
+- { "MemberNumber": 2, "Category": "Gold" }
+- { "MemberNumber": 3, "Category": "Platinum" },
+- { "MemberNumber": 4, "Category": "Diamond" }
+
 
 
