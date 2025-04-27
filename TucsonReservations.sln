@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TucsonReservations.Infrastr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TucsonReservations.API", "src\TucsonReservations.API\TucsonReservations.API.csproj", "{89B9CE77-9211-43DF-AA7A-78709AC7AD78}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TucsonReservations.UnitTests", "tests\TucsonReservations.UnitTests\TucsonReservations.UnitTests.csproj", "{775256CA-328D-4C62-AE33-CBD5154ECEB3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{89B9CE77-9211-43DF-AA7A-78709AC7AD78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89B9CE77-9211-43DF-AA7A-78709AC7AD78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89B9CE77-9211-43DF-AA7A-78709AC7AD78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{775256CA-328D-4C62-AE33-CBD5154ECEB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{775256CA-328D-4C62-AE33-CBD5154ECEB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{775256CA-328D-4C62-AE33-CBD5154ECEB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{775256CA-328D-4C62-AE33-CBD5154ECEB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{A4FA3B40-C3FB-F1A7-8E36-55D3CEF296F9} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{1A6BA522-52EE-4AA3-AC0C-F67559B329B4} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{89B9CE77-9211-43DF-AA7A-78709AC7AD78} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{775256CA-328D-4C62-AE33-CBD5154ECEB3} = {B09903C5-0512-4CFD-8722-8CA5F9849D6E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4B43DFAE-8CDA-4BF5-97A4-54FE8BBE9F5C}

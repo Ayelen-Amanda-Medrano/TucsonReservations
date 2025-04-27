@@ -6,7 +6,7 @@ public class Client
 {
     public int Id { get; set; }
     public int MemberNumber { get; set; }
-    public required string Name { get; set; }
+    public string Name { get; set; }
     public ClientCategory Category { get; set; }
 
     public bool CanReserve(DateTime reservationDate)
