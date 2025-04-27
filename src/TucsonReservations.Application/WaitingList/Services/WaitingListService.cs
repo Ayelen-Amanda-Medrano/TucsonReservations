@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using System.Net;
-using TucsonReservations.Application.Clients.Dtos;
 using TucsonReservations.Application.Common;
+using TucsonReservations.Application.WaitingList.Dtos;
 using TucsonReservations.Application.WaitingList.Repositories.Interfaces;
 using TucsonReservations.Application.WaitingList.Response;
 using TucsonReservations.Application.WaitingList.Services.Interfaces;
@@ -22,7 +22,7 @@ public class WaitingListService : IWaitingListService
     {
         var waitingList = _waitingListRepository.GetAll();
 
-        var waitingListDto = _mapper.Map<List<ClientDto>>(waitingList);
+        var waitingListDto = _mapper.Map<List<WaitingListItemDto>>(waitingList);
 
         return Result<GetWaitingListResponse>.Ok(new GetWaitingListResponse() { WaitingList = waitingListDto }, HttpStatusCode.OK);
     }

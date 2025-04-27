@@ -1,8 +1,8 @@
-﻿using TucsonReservations.Application.Clients.Dtos;
+﻿using TucsonReservations.Application.WaitingList.Dtos;
 
 namespace TucsonReservations.Application.WaitingList.Response;
 
 public class GetWaitingListResponse
 {
-    public List<ClientDto> WaitingList { get; set; } = new();
+    public List<WaitingListItemDto> WaitingList { get; set; } = new();
 }

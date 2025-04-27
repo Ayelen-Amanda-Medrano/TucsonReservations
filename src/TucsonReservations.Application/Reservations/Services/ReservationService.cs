@@ -45,7 +45,7 @@ public class ReservationService : IReservationService
 
         if (table is null)
         {
-            _waitingListRepository.Add(client);
+            _waitingListRepository.Add(new() { Client = client, RequestedDate = reservationDateOnly } );
             return Result<CreateReservationResponse>.Ok(null, HttpStatusCode.OK, "No tables available. Added to waiting list.");
         }
 
@@ -78,16 +78,16 @@ public class ReservationService : IReservationService
         _tableRepository.FreeTable(reservationDateOnly, reservation.Table.TableNumber);
 
 
-        var client = _waitingListRepository.GetNextByPriority();
-        if(client is not null)
+        var waitingListItem = _waitingListRepository.GetNextByPriority();
+        if(waitingListItem is not null)
         {
             var table = _tableRepository.GetFirstAvailable(reservationDateOnly);
-            if (table is not null)
+            if (table is not null && waitingListItem.RequestedDate == reservationDateOnly)
             {
-                var newReservation = Reservation.CreateInstance(client, table, request.ReservationDate);
+                var newReservation = Reservation.CreateInstance(waitingListItem.Client, table, request.ReservationDate);
 
                 _reservationRepository.Add(newReservation);
-                _waitingListRepository.Remove(client);
+                _waitingListRepository.Remove(waitingListItem);
                 _tableRepository.ReserveTable(reservationDateOnly, table!.TableNumber);
             }
         }

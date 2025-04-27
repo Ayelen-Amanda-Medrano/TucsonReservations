@@ -4,8 +4,8 @@ namespace TucsonReservations.Application.WaitingList.Repositories.Interfaces;
 
 public interface IWaitingListRepository
 {
-    void Add(Client client);
-    void Remove(Client client);
-    Client? GetNextByPriority();
-    IReadOnlyList<Client> GetAll();
+    void Add(WaitingListItem item);
+    void Remove(WaitingListItem item);
+    WaitingListItem? GetNextByPriority();
+    IReadOnlyList<WaitingListItem> GetAll();
 }

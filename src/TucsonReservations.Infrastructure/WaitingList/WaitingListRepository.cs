@@ -5,22 +5,22 @@ namespace TucsonReservations.Infrastructure.WaitingList;
 
 public class WaitingListRepository : IWaitingListRepository
 {
-    private readonly List<Client> _waitingList = new();
+    private readonly List<WaitingListItem> _waitingList = new();
 
-    public void Add(Client client) => _waitingList.Add(client);
+    public void Add(WaitingListItem item) => _waitingList.Add(item);
 
-    public IReadOnlyList<Client> GetAll()
+    public IReadOnlyList<WaitingListItem> GetAll()
         => _waitingList;
 
-    public Client? GetNextByPriority()
+    public WaitingListItem? GetNextByPriority()
     {
         return _waitingList
-            .OrderByDescending(c => c.Category)
+            .OrderByDescending(c => c.Client.Category)
             .FirstOrDefault();
     }
 
-    public void Remove(Client client)
+    public void Remove(WaitingListItem item)
     {
-        _waitingList.Remove(client);
+        _waitingList.Remove(item);
     }
 }
