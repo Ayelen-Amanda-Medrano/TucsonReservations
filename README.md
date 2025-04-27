@@ -23,6 +23,7 @@ El proyecto se organiza en capas bien definidas, siguiendo los principios SOLID:
 • TucsonReservations.Infrastructure (Capa de Implementación): Alberga las implementaciones concretas de las interfaces definidas en otras capas, como la interacción con bases de datos, servicios externos o cualquier otro detalle de infraestructura.
 
 ⚙️ Endpoints Principales de la API
+
 Reservas (/api/reservations)
 - POST /api/reservations: Permite la creación de una nueva reserva de mesa.
 - GET /api/reservations: Recupera la lista de todas las reservas existentes.
